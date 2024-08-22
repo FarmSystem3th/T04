@@ -1,5 +1,6 @@
+import 'package:app/screens/Mypage/MypageMain.dart';
 import 'package:flutter/material.dart';
-import '/screens/PhoneAuthScreen.dart';
+import '/screens/Signup/PhoneAuthScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Firebase App',
-      home: PhoneAuthScreen(),
+      home: MypageMain(),
     );
   }
 }
