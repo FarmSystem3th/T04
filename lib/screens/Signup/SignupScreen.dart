@@ -15,7 +15,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
 
   void _registerUser() async {
     if (_passwordController.text != _confirmPasswordController.text) {

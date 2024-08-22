@@ -44,23 +44,25 @@ class _MypageMain extends State<MypageMain> {
             _index = value;
           });
         },
+        selectedItemColor: Color(0xFFFF9416),  // 선택된 아이콘의 색상
+        unselectedItemColor: Color(0xFFADADAF),
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'home',
-              activeIcon: Icon(BottomIcon.home_red)),
+              icon: Icon(BottomIcon.home, size: 60),
+              label: 'home'
+           ),
           BottomNavigationBarItem(
-              icon: Icon(BottomIcon.apply),
+              icon: Icon(BottomIcon.apply, size: 60),
               label: 'apply',
-              activeIcon: Icon(BottomIcon.apply_red)),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(BottomIcon.chat),
+              icon: Icon(BottomIcon.chat, size: 60),
               label: 'chat',
-              activeIcon: Icon(BottomIcon.chat_red)),
+          ),
           BottomNavigationBarItem(
-              icon: Icon(BottomIcon.account),
+              icon: Icon(BottomIcon.account, size: 60),
               label: 'account',
-              activeIcon: Icon(BottomIcon.account_red)),
+          ),
         ],
       ),
     );

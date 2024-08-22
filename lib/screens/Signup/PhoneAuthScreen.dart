@@ -150,7 +150,8 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                                       shape: RoundedRectangleBorder(
                                         side: BorderSide(
                                           width: 1,
-                                          strokeAlign: BorderSide.strokeAlignOutside,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
                                           color: Color(0xFFFF0000),
                                         ),
                                         borderRadius: BorderRadius.circular(10),
@@ -203,7 +204,8 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                                       shape: RoundedRectangleBorder(
                                         side: BorderSide(
                                           width: 1,
-                                          strokeAlign: BorderSide.strokeAlignOutside,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
                                           color: Color(0xFFFF0000),
                                         ),
                                         borderRadius: BorderRadius.circular(10),
@@ -239,7 +241,8 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 14, left: 35, right: 35),
+                          margin:
+                              EdgeInsets.only(bottom: 14, left: 35, right: 35),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -324,7 +327,8 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
                                       shape: RoundedRectangleBorder(
                                         side: BorderSide(
                                           width: 1,
-                                          strokeAlign: BorderSide.strokeAlignOutside,
+                                          strokeAlign:
+                                              BorderSide.strokeAlignOutside,
                                           color: Color(0xFFFF0000),
                                         ),
                                         borderRadius: BorderRadius.circular(10),
