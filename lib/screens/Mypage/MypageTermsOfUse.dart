@@ -22,96 +22,19 @@ class MypageTermsOfUse extends StatelessWidget {
 											crossAxisAlignment: CrossAxisAlignment.start,
 											children: [
 												IntrinsicHeight(
-													child: Container(
-														margin: EdgeInsets.only( bottom: 30, left: 33, right: 33),
-														width: double.infinity,
-														child: Row(
-															children: [
-																Expanded(
-																	child: Container(
-																		margin: EdgeInsets.only( right: 4),
-																		width: double.infinity,
-																		child: Text(
-																			"9:41",
-																			style: TextStyle(
-																				color: Color(0xFF000000),
-																				fontSize: 17,
-																			),
-																		),
-																	),
-																),
-																Container(
-																	margin: EdgeInsets.only( right: 8),
-																	width: 19,
-																	height: 12,
-																	child: Image.network(
-																		"https://i.imgur.com/1tMFzp8.png",
-																		fit: BoxFit.fill,
-																	)
-																),
-																Container(
-																	margin: EdgeInsets.only( right: 7),
-																	width: 17,
-																	height: 12,
-																	child: Image.network(
-																		"https://i.imgur.com/1tMFzp8.png",
-																		fit: BoxFit.fill,
-																	)
-																),
-																IntrinsicHeight(
-																	child: Container(
-																		decoration: BoxDecoration(
-																			border: Border.all(
-																				color: Color(0xFF000000),
-																				width: 1,
-																			),
-																			borderRadius: BorderRadius.circular(4),
-																		),
-																		padding: EdgeInsets.only( left: 2, right: 2),
-																		margin: EdgeInsets.only( right: 1),
-																		width: 25,
-																		child: Column(
-																			crossAxisAlignment: CrossAxisAlignment.start,
-																			children: [
-																				Container(
-																					decoration: BoxDecoration(
-																						borderRadius: BorderRadius.circular(2),
-																						color: Color(0xFF000000),
-																					),
-																					margin: EdgeInsets.only( top: 2),
-																					height: 9,
-																					width: double.infinity,
-																					child: SizedBox(),
-																				),
-																			]
-																		),
-																	),
-																),
-																Container(
-																	color: Color(0xFF000000),
-																	width: 1,
-																	height: 4,
-																	child: SizedBox(),
-																),
-															]
-														),
-													),
-												),
-												IntrinsicHeight(
-													child: Container(
-														margin: EdgeInsets.only( bottom: 36, left: 17, right: 17),
-														width: double.infinity,
-														child: Row(
-															children: [
-																Container(
-																	margin: EdgeInsets.only( right: 21),
-																	width: 6,
-																	height: 12,
-																	child: Image.network(
-																		"https://i.imgur.com/1tMFzp8.png",
-																		fit: BoxFit.fill,
-																	)
-																),
+                         		 child: Container(
+                               margin: EdgeInsets.only(top: 20, bottom: 45, left: 17, right: 17),
+                            		width: double.infinity,
+                           		 	child: Row(
+                                	children: [
+                                  	Container(
+                                    	child: IconButton(
+                                      	icon: Image.asset("assets/images/back.png", color: Color(0xFF000000), fit: BoxFit.contain),
+                                      	onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
 																Expanded(
 																	child: Container(
 																		width: double.infinity,
