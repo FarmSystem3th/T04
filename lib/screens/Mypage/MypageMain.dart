@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:app/authProvider.dart';
 import 'package:app/screens/Mypage/MypageFAQ.dart';
 import 'package:app/screens/Mypage/MypageAccountInfo.dart';
 import 'package:app/screens/Mypage/MypageManual.dart';
 import 'package:app/screens/Mypage/MypagePrivacyPolicy.dart';
 import 'package:app/screens/Mypage/MypageTermsOfUse.dart';
-import 'package:app/screens/HomeScreen/HomeScreen.dart';
-import 'package:app/Navigator.dart';
+import 'package:app/screens/Login/LoginScreen.dart';
 
-class MypageMain extends StatelessWidget {
+class MypageMain extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  MypageMain({required this.navigatorKey});
+
+  @override
+  _MypageMainState createState() => _MypageMainState();
+}
+
+class _MypageMainState extends State<MypageMain> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _syncNavigator();
+    }
+  }
+
+  void _syncNavigator() {
+    final navigatorState = widget.navigatorKey.currentState;
+    if (navigatorState != null && navigatorState.canPop()) {
+      navigatorState.popUntil((route) => route.isFirst);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +91,8 @@ class MypageMain extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w500,
             color: Color(0xFF000000),
             fontSize: 20,
           ),
@@ -77,6 +114,8 @@ class MypageMain extends StatelessWidget {
         child: Text(
           "로그아웃",
           style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w500,
             color: Color(0xFF000000),
             fontSize: 20,
           ),
@@ -104,6 +143,8 @@ class MypageMain extends StatelessWidget {
         child: Text(
           "계정 탈퇴",
           style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w500,
             color: Color(0xFF000000),
             fontSize: 20,
           ),
@@ -140,6 +181,8 @@ class MypageMain extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w700,
               color: Color(0xFF000000),
               fontSize: 20,
             ),
@@ -149,6 +192,8 @@ class MypageMain extends StatelessWidget {
             subtitle,
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w600,
               color: Color(0xFF757575),
               fontSize: 16,
             ),
@@ -156,15 +201,19 @@ class MypageMain extends StatelessWidget {
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => HomeScreen()),
-              //       (route) => false,
-              // );
+              // 로그아웃 처리
+              Provider.of<AuthProvider>(context, listen: false).logout();
+              Navigator.pop(context);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()), // 로그인 화면으로 리다이렉트
+                    (route) => false,
+              );
             },
             child: Text(
               "로그아웃",
               style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
                 color: Color(0xFFFFFFFF),
                 fontSize: 18,
               ),
@@ -182,6 +231,8 @@ class MypageMain extends StatelessWidget {
             child: Text(
               "포기하기",
               style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
                 color: Color(0xFFFF9416),
                 fontSize: 18,
               ),
@@ -212,6 +263,8 @@ class MypageMain extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w700,
               color: Color(0xFF000000),
               fontSize: 20,
             ),
@@ -221,6 +274,8 @@ class MypageMain extends StatelessWidget {
             subtitle,
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w600,
               color: Color(0xFF757575),
               fontSize: 16,
             ),
@@ -228,15 +283,17 @@ class MypageMain extends StatelessWidget {
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => HomeScreen()),
-              //       (route) => false,
-              // );
+              Navigator.pop(context);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()), // 로그인 화면으로 리다이렉트
+                    (route) => false,
+              );
             },
             child: Text(
               "탈퇴하기",
               style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
                 color: Color(0xFFFFFFFF),
                 fontSize: 18,
               ),
@@ -254,6 +311,8 @@ class MypageMain extends StatelessWidget {
             child: Text(
               "포기하기",
               style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontWeight: FontWeight.w600,
                 color: Color(0xFFFF9416),
                 fontSize: 18,
               ),

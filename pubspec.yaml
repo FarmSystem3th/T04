@@ -39,6 +39,8 @@ dependencies:
   fluttertoast: ^8.2.4
   flutter_svg: ^0.22.0
   cloud_firestore: ^4.14.0
+  shared_preferences: ^2.0.15
+  web_socket_channel: ^2.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,11 +77,32 @@ flutter:
     - assets/images/chat.png
     - assets/images/home.png
     - assets/images/back.png
+    - assets/images/LoginLOGO.png
 
   fonts:
     - family: BottomIcon
       fonts:
         - asset: assets/fonts/BottomIcon.ttf
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/Pretendard-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Pretendard-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Pretendard-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Pretendard-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Pretendard-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Pretendard-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Pretendard-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Pretendard-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Pretendard-Black.ttf
+          weight: 900
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

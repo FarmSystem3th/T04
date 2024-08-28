@@ -30,8 +30,10 @@ class MypageFaq extends StatelessWidget {
                         child: Text(
                           "자주 묻는 질문",
                           style: TextStyle(
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w600,
                             color: Color(0xFF000000),
-                            fontSize: 17,
+                            fontSize: 24,
                           ),
                         ),
                       ),
@@ -64,6 +66,8 @@ class MypageFaq extends StatelessWidget {
       title: Text(
         question,
         style: TextStyle(
+          fontFamily: 'Pretendard',
+          fontWeight: FontWeight.w600,
           color: Color(0xFF000000),
           fontSize: 17,
         ),
@@ -74,6 +78,8 @@ class MypageFaq extends StatelessWidget {
           child: Text(
             answer,
             style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w500,
               color: Color(0xFF555555),
               fontSize: 15,
             ),
