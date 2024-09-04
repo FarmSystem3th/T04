@@ -259,13 +259,25 @@ class Report(Base):
     __tablename__ = 'report'
 
     report_id = Column(String(36), primary_key=True, nullable=False)
-    reporting_user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+    report_category_id = Column(Integer, ForeignKey('report_category.report_category_id'), nullable=False)
     reported_user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
-    report_content = Column(Text, nullable=False)
-    report_created_at = Column(DateTime, nullable=False)
+    reporting_user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+    report_reason = Column(Text, nullable=False)
+    report_time = Column(DateTime, nullable=False)
 
     reporting_user = relationship("User", foreign_keys=[reporting_user_id], back_populates="reports_made")
     reported_user = relationship("User", foreign_keys=[reported_user_id], back_populates="reports_received")
+    report_category = relationship("ReportCategory", foreign_keys=[report_category_id], back_populates="reports_category")
+
+
+class ReportCategory(Base):
+    __tablename__ = 'report_category'
+
+    report_category_id = Column(Integer, primary_key=True, nullable=False)
+    report_category_name = Column(String(20), nullable=False)
+
+    reports_category = relationship("Report", back_populates="report_category")
+
 
 
 class SocialAccount(Base):
@@ -276,6 +288,3 @@ class SocialAccount(Base):
     social_type = Column(String(20), nullable=False)
 
     user = relationship("User", back_populates="social_accounts")
-
-
-
