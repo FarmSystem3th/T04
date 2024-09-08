@@ -1,6 +1,8 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Time, Boolean
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
+from pytz import timezone
 
 Base = declarative_base()
 
@@ -28,6 +30,7 @@ class User(Base):
     user_sido = Column(String(100), nullable=True)
     user_sigungu = Column(String(100), nullable=True)
     user_phone = Column(String(20), nullable=True)
+    user_realname = Column(String(20), nullable=True)
 
     bookmarks = relationship("Bookmark", foreign_keys="Bookmark.user_id", back_populates="user")
     bookmarks_received = relationship("Bookmark", foreign_keys="Bookmark.bookmarked_user_id", back_populates="bookmarked_user")
@@ -53,6 +56,10 @@ class User(Base):
     user_interests = relationship("UserInterest", back_populates="user")
     user_life_services = relationship("UserLifeService", back_populates="user")
     user_want_adjectives = relationship("UserWantAdjective", back_populates="user")
+    sessions = relationship("UserSession", back_populates="user")
+
+    def verify_password(self, password: str) -> bool:
+        return self.user_password == password
 
 
 class InterestCategory(Base):
@@ -288,3 +295,31 @@ class SocialAccount(Base):
     social_type = Column(String(20), nullable=False)
 
     user = relationship("User", back_populates="social_accounts")
+
+
+
+
+## user session
+
+class UserLogin(Base):
+    __tablename__ = 'user_login'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    username: Mapped[str] = mapped_column(String(50), nullable=False)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
+
+
+
+class UserSession(Base):
+    __tablename__ = 'user_sessions'
+
+    session_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('users.user_id'))
+    token = Column(String(2048), nullable=False)  # JWT token 저장
+    created_at = Column(DateTime, default=datetime.now(timezone('Asia/Seoul')))
+
+    def __repr__(self):
+        return f"<JWT(token={self.token}, expires_at={self.expires_at})>"
+
+    # Optional: Add relationship to User model if needed
+    user = relationship("User", back_populates="sessions")
