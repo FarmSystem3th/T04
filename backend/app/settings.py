@@ -6,4 +6,6 @@ load_dotenv()
 
 # 환경 변수에서의 설정 값 가져오기
 DATABASE_URL = os.getenv("DATABASE_URL")
-
+SECRET_KEY: str = os.getenv("SECRET_KEY")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 120
