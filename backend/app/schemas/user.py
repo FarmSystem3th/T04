@@ -2,6 +2,7 @@ from dataclasses import Field
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
+## 프로필
 class UserProfileResponse(BaseModel):
     user_type: int
     user_nickname: Optional[str]
@@ -9,15 +10,15 @@ class UserProfileResponse(BaseModel):
     user_sigungu: Optional[str]
     age: Optional[int]
     k_age: Optional[int]
-    user_lifeservice: str
+    user_lifeservice: Optional[str]
     bedtime: Optional[str]   # 'HH:MM' 형식의 문자열
     wakeup_time: Optional[str]   # 'HH:MM' 형식의 문자열
-    user_adjective: List[str]
-    user_interest: List[str]
-    user_want_adjective: List[str]
+    user_adjective: Optional[List[str]]
+    user_interest: Optional[List[str]]
+    user_want_adjective: Optional[List[str]]
     user_biography: Optional[str]
-    has_disease: str
-    has_pet: str
+    has_disease: Optional[str]
+    has_pet: Optional[str]
 
 class UserProfileUpdate(BaseModel):
     user_nickname: Optional[str] = Field(None, example = "닉네임")
@@ -36,3 +37,11 @@ class UserProfileUpdate(BaseModel):
 
 class UpdateResponseMessage(BaseModel):
     message: str
+
+## 로그인
+class Login(BaseModel):
+    user_name: str = Field(example = "yyun")
+    password: str = Field(example = "IoQ5MwmOLB")
+
+class TokenData(BaseModel):
+    user_id: Optional[str] = None
