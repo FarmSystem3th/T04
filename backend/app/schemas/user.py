@@ -21,6 +21,12 @@ class UserProfileResponse(BaseModel):
     has_disease: Optional[str]
     has_pet: Optional[str]
 
+class ExtendedUserProfileResponse(UserProfileResponse):
+    common_interests: Optional[List[str]] = Field(None, description = "공통 관심사")
+    common_adjectives: Optional[List[str]] = Field(None, description = "공통 형용사")
+    match_wanted_adjectives: Optional[List[str]] = Field(None, description = "상대방이 원하는 형용사와 내 형용사 간 공통 형용사")
+    user_wanted_adjectives: Optional[List[str]] = Field(None, description = "내가 원하는 형용사와 상대방의 형용사 간 공통 형용사")
+
 class UserProfileUpdate(BaseModel):
     user_nickname: Optional[str] = Field(None, example = "닉네임")
     life_service: Optional[str] = Field(None, example = "생활서비스")
