@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.endpoints import user, category
+from app.api.endpoints import user, category, matching
 from app.db.session import engine, SessionLocal
 from app.db.models import Base, UserSession
 
@@ -50,6 +50,7 @@ def custom_openapi():
 # 라우터 등록
 app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(category.router, prefix="/categories", tags=["categories"])
+app.include_router(matching.router, prefix="/matchings", tags=["matchings"])
 
 if __name__ == "__main__":
     import uvicorn
