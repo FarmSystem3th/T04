@@ -221,7 +221,7 @@ class Matching(Base):
     matching_id = Column(String(36), primary_key=True, nullable=False)
     matching_sender_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     matching_receiver_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
-    matching_status = Column(Boolean, nullable=False, default=False)
+    matching_status = Column(Boolean, nullable=False, default=0)
 
     sender = relationship("User", foreign_keys=[matching_sender_id], back_populates="matchings_sent")
     receiver = relationship("User", foreign_keys=[matching_receiver_id], back_populates="matchings_received")
