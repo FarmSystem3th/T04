@@ -6,7 +6,7 @@ from app.db import crud
 from app.core.config import settings
 from jose import JWTError, jwt
 from app.db.models import User
-from app.schemas.user import UserProfileResponse, UserProfileUpdate, UpdateResponseMessage, Login
+from app.schemas.user import UserProfileResponse, UserProfileUpdate, UpdateResponseMessage, SignUp, Login
 from app.core.auth import create_access_token, get_current_user, verify_token, Token, TokenData
 from app.db.crud.user_session import get_session_by_token, delete_session
 from app.api.deps import get_db
@@ -29,6 +29,26 @@ def update_profile(user_id: int, profile_update: UserProfileUpdate, db: Session 
     updated_user = crud.user.update_user_profile(db, user_id, profile_update)
     return updated_user
 
+# 회원가입
+@router.post("/signup", summary="회원가입")
+def signup(signup_data: SignUp, db: Session = Depends(get_db)):
+    # 기존에 같은 이름의 유저가 있는지 확인
+    existing_user = db.query(User).filter(User.user_name == signup_data.user_name).first()
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="이미 존재하는 사용자 아이디입니다.")
+
+    # 새로운 사용자 생성
+    new_user = User(
+        user_name=signup_data.user_name,
+        user_password=signup_data.user_password
+    )
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return {"user_id": new_user.user_id, "message": "회원가입이 완료되었습니다."}
 
 # 로그인
 @router.post("/login", response_model=Token, summary="로그인")
