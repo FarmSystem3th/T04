@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 
 ## 프로필
 class UserProfileResponse(BaseModel):
+    id: int
     user_type: int
     user_nickname: Optional[str]
     user_sido: Optional[str]
