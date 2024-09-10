@@ -65,7 +65,7 @@ def get_recommendations(user_id: int, db: Session = Depends(get_db)):
 
             if bedtime_diff < 5400 and wakeup_diff < 5400:  # 1시간 반 이내 호환성 체크
                 match_profile = ExtendedUserProfileResponse(
-                    **match_profile.dict(),  # Copy the basic profile data
+                    **match_profile.dict(),  
                     common_interests=common_interests,
                     common_adjectives=common_adjectives,
                     match_wanted_adjectives=match_wanted_adjectives,
