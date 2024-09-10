@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Time, Boolean
+from sqlalchemy.dialects.mssql import TINYINT
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -265,12 +266,13 @@ class PolicyAgreed(Base):
 class Report(Base):
     __tablename__ = 'report'
 
-    report_id = Column(String(36), primary_key=True, nullable=False)
+    report_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     report_category_id = Column(Integer, ForeignKey('report_category.report_category_id'), nullable=False)
     reported_user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     reporting_user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
-    report_reason = Column(Text, nullable=False)
-    report_time = Column(DateTime, nullable=False)
+    report_reason = Column(Text, nullable=True)
+    report_time = Column(DateTime, nullable=True)
+    report_cancelled = Column(TINYINT, default=0, nullable=False)
 
     reporting_user = relationship("User", foreign_keys=[reporting_user_id], back_populates="reports_made")
     reported_user = relationship("User", foreign_keys=[reported_user_id], back_populates="reports_received")
