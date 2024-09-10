@@ -1,9 +1,9 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from app.db import crud
-from app.db.models import User
+from app.db.models import User, Report, ReportCategory
 from app.schemas.user import UserProfileResponse, UserProfileUpdate, UpdateResponseMessage, SignUp, Login
 from app.core.auth import create_access_token, get_current_user, verify_token, Token, TokenData
 from app.db.crud.user_session import get_session_by_token, delete_session
@@ -83,3 +83,38 @@ def logout(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
         return {"message": "Successfully logged out"}
     else:
         raise HTTPException(status_code=404, detail="Session not found")
+
+# 신고
+@router.post("/report", summary="신고하기")
+def report_user(
+        reported_user_id: int,
+        report_category_id: int,
+        report_reason: str = None,
+        db: Session = Depends(get_db),
+        current_user: User = Depends(get_current_user)
+):
+    # 신고하려는 유저가 존재하는지 확인
+    reported_user = db.query(User).filter(User.user_id == reported_user_id).first()
+    if not reported_user:
+        raise HTTPException(status_code=404, detail="신고 대상 유저를 찾을 수 없습니다.")
+
+    # 신고 카테고리가 존재하는지 확인
+    report_category = db.query(ReportCategory).filter(ReportCategory.report_category_id == report_category_id).first()
+    if not report_category:
+        raise HTTPException(status_code=404, detail="신고 카테고리를 찾을 수 없습니다.")
+
+    # 신고 생성
+    report = Report(
+        report_category_id=report_category_id,
+        reported_user_id=reported_user_id,
+        reporting_user_id=current_user.user_id,
+        report_reason=report_reason,
+        report_time=datetime.now(),
+        report_cancelled=0  # 신고가 접수된 상태로 설정
+    )
+
+    db.add(report)
+    db.commit()
+    db.refresh(report)
+
+    return {"message": "신고가 성공적으로 접수되었습니다.", "report_id": report.report_id}
