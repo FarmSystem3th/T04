@@ -38,7 +38,12 @@ class UserProfileUpdate(BaseModel):
 class UpdateResponseMessage(BaseModel):
     message: str
 
-## 로그인
+# 회원가입
+class SignUp(BaseModel):
+    user_name: str
+    user_password: str
+
+# 로그인
 class Login(BaseModel):
     user_name: str = Field(example = "yyun")
     password: str = Field(example = "IoQ5MwmOLB")
