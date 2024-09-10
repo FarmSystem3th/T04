@@ -3,9 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from app.db import crud
-from app.core.config import settings
-from jose import JWTError, jwt
-from app.db.models import User, Matching
+from app.db.models import User
 from app.schemas.user import UserProfileResponse, UserProfileUpdate, UpdateResponseMessage, SignUp, Login
 from app.core.auth import create_access_token, get_current_user, verify_token, Token, TokenData
 from app.db.crud.user_session import get_session_by_token, delete_session
@@ -29,25 +27,6 @@ def update_profile(user_id: int, profile_update: UserProfileUpdate, db: Session 
     updated_user = crud.user.update_user_profile(db, user_id, profile_update)
     return updated_user
 
-# 자신이 매칭 신청한 사람 조회
-@router.get("/matchings", summary="내가 매칭 신청한 사람 조회")
-def get_my_matchings(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    # 내가 매칭 신청한 사람들 조회
-    matchings = db.query(Matching).filter(Matching.matching_sender_id == current_user.user_id).all()
-
-    # 매칭 상대의 닉네임, user_sido, user_sigungu, age, k_age 정보 추출
-    result = []
-    for matching in matchings:
-        receiver = db.query(User).filter(User.user_id == matching.matching_receiver_id).first()
-        result.append({
-            "nickname": receiver.user_nickname,
-            "user_sido": receiver.user_sido,
-            "user_sigungu": receiver.user_sigungu,
-            "age": receiver.user_age,
-            "k_age": receiver.user_k_age
-        })
-
-    return result
 
 # 회원가입
 @router.post("/signup", summary="회원가입")
