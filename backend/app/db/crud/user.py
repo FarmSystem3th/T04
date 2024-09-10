@@ -30,6 +30,7 @@ def get_user_profile(db: Session, user_id: int) -> UserProfileResponse:
     want_adjective_names = [adj.adj_name for adj in want_adjectives]
 
     return UserProfileResponse(
+        id = user_id,
         user_type=user_type,
         user_nickname=user.user_nickname,
         user_sido=user.user_sido,
